@@ -45,6 +45,13 @@ public class HomePageTest {
         }
     }
 
+    @Test
+    public void getHomePage_hasCorrectBrand() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(xpath("/html/body/div/nav/a").exists())
+	        .andExpect(xpath("/html/body/div/nav/a").string("lab07"));
+    }
 
     @Test
     public void getHomePage_hasCorrectTitle() throws Exception {

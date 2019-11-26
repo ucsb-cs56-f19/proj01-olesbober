@@ -12,7 +12,7 @@ import hello.geojson.FeatureCollection;
 import java.util.Map;
 import java.util.HashMap;
 import com.nimbusds.oauth2.sdk.client.ClientReadRequest;
-import hello.EarthquakeQueryService;
+import hello.services.EarthquakeQueryService;
 import hello.EqSearch;
 
 @Controller

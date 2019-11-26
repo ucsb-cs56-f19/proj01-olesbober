@@ -1,5 +1,6 @@
 * Documentation link: <https://ucsb-cs56-f19.github.io/lab07-olesbober/>
 * Web app link: <https://cs56-f19-lab07-olesbober.herokuapp.com/>
+* My Travis CI page: <https://travis-ci.org/ucsb-cs56-f19/lab07-olesbober>
 
 A simple Spring Boot webapp using:
 * Thymeleaf templating

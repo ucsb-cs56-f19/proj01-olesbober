@@ -48,5 +48,4 @@ public class EarthquakeQueryService {
         logger.info("from EarthquakeQueryService.getJSON: " + retVal);
         return retVal;
     }
-
 } 

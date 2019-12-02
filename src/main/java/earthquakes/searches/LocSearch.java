@@ -4,14 +4,14 @@ public class LocSearch {
     private String location;
 
     public LocSearch() {
-	this.location = "";
+        this.location = "";
     }
 
     public String getLocation() {
-	return this.location;
+        return this.location;
     }
 
     public void setLocation(String location) {
-	this.location = location;
+        this.location = location;
     }
 }

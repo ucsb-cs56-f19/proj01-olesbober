@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-  <title>Location Results</title>
+  <title>Location Search Results</title>
   <div th:replace="bootstrap/bootstrap_head.html"></div>
 </head>
 
@@ -22,11 +22,12 @@
     <table class="table">
       <thead>
         <tr>
-          <th>place_id</th>
-          <th>latitude</th>
-          <th>longitude</th>
-          <th>display_name</th>
-          <th>type</th>
+          <th>Place ID</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Display Name</th>
+          <th>Type</th>
+          <th>Get Earthquakes</th>
         </tr>
       </thead>
       <tbody>
@@ -36,6 +37,7 @@
           <td th:text="${p.lon}"></td>
           <td th:text="${p.display_name}"></td>
           <td th:text="${p.type}"></td>
+          <td><a th:href="@{/earthquakes/search/(lat=${p.lat},lon=${p.lon},location=${p.display_name})}">Get Earthquakes</a></td>
         </tr>
       </tbody>
     </table>

@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.HashMap;
 import com.nimbusds.oauth2.sdk.client.ClientReadRequest;
 import earthquakes.services.EarthquakeQueryService;
+import earthquakes.services.LocationQueryService;
 import earthquakes.searches.LocSearch;
 
 @Controller
@@ -29,8 +30,10 @@ public class LocationsController {
     @GetMapping("/locations/results")
     public String getLocationsResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
             LocSearch locSearch) {
+        LocationQueryService l = new LocationQueryService();
         model.addAttribute("locSearch", locSearch);
-        // TODO: Actually do the search here and add results to the model
+        String json = l.getJSON(locSearch.getLocation());
+        model.addAttribute("json", json);
         return "locations/results";
     }
 }

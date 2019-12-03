@@ -3,48 +3,43 @@
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-<span class="nc" id="L17">public class EarthquakeQueryService {</span>
+<span class="nc" id="L14">public class EarthquakeQueryService {</span>
 
-<span class="nc" id="L19">    private Logger logger = LoggerFactory.getLogger(EarthquakeQueryService.class);</span>
+<span class="nc" id="L16">    private Logger logger = LoggerFactory.getLogger(EarthquakeQueryService.class);</span>
 
     public String getJSON(int distance, int minmag, double lat, double lon) {
-<span class="nc" id="L22">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L19">        RestTemplate restTemplate = new RestTemplate();</span>
 
-<span class="nc" id="L24">        HttpHeaders headers = new HttpHeaders();</span>
-<span class="nc" id="L25">        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));</span>
-<span class="nc" id="L26">        headers.setContentType(MediaType.APPLICATION_JSON);</span>
+<span class="nc" id="L21">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="nc" id="L22">        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));</span>
+<span class="nc" id="L23">        headers.setContentType(MediaType.APPLICATION_JSON);</span>
 
-<span class="nc" id="L28">        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(&quot;body&quot;, headers);</span>
+<span class="nc" id="L25">        HttpEntity&lt;String&gt; entity = new HttpEntity&lt;&gt;(&quot;body&quot;, headers);</span>
 
-<span class="nc" id="L30">        String uri = &quot;https://earthquake.usgs.gov/fdsnws/event/1/query&quot;;</span>
-<span class="nc" id="L31">        String params = String.format(&quot;?format=geojson&amp;minmagnitude=%d&amp;maxradiuskm=%d&amp;latitude=%f&amp;longitude=%f&quot;,</span>
-<span class="nc" id="L32">           minmag,distance,lat,lon);</span>
+<span class="nc" id="L27">        String uri = &quot;https://earthquake.usgs.gov/fdsnws/event/1/query&quot;;</span>
+<span class="nc" id="L28">        String params = String.format(&quot;?format=geojson&amp;minmagnitude=%d&amp;maxradiuskm=%d&amp;latitude=%f&amp;longitude=%f&quot;,</span>
+<span class="nc" id="L29">           minmag,distance,lat,lon);</span>
 
-<span class="nc" id="L34">        String url = uri + params;</span>
-<span class="nc" id="L35">        logger.info(&quot;url=&quot; + url);</span>
+<span class="nc" id="L31">        String url = uri + params;</span>
+<span class="nc" id="L32">        logger.info(&quot;url=&quot; + url);</span>
 
-<span class="nc" id="L37">        String retVal=&quot;&quot;;</span>
+<span class="nc" id="L34">        String retVal=&quot;&quot;;</span>
         try {   
-<span class="nc" id="L39">            ResponseEntity&lt;String&gt; re = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);</span>
-<span class="nc" id="L40">            MediaType contentType = re.getHeaders().getContentType();</span>
-<span class="nc" id="L41">            HttpStatus statusCode = re.getStatusCode();</span>
-<span class="nc" id="L42">            retVal = re.getBody();</span>
-<span class="nc" id="L43">        } catch (HttpClientErrorException e) {</span>
-<span class="nc" id="L44">            retVal = &quot;{\&quot;error\&quot;: \&quot;401: Unauthorized\&quot;}&quot;;</span>
-<span class="nc" id="L45">        }</span>
-<span class="nc" id="L46">        logger.info(&quot;from EarthquakeQueryService.getJSON: &quot; + retVal);</span>
-<span class="nc" id="L47">        return retVal;</span>
+<span class="nc" id="L36">            ResponseEntity&lt;String&gt; re = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);</span>
+<span class="nc" id="L37">            retVal = re.getBody();</span>
+<span class="nc" id="L38">        } catch (HttpClientErrorException e) {</span>
+<span class="nc" id="L39">            retVal = &quot;{\&quot;error\&quot;: \&quot;401: Unauthorized\&quot;}&quot;;</span>
+<span class="nc" id="L40">        }</span>
+<span class="nc" id="L41">        logger.info(&quot;from EarthquakeQueryService.getJSON: &quot; + retVal);</span>
+<span class="nc" id="L42">        return retVal;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

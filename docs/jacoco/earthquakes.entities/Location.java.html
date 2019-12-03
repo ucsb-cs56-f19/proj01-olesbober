@@ -11,7 +11,7 @@ import javax.persistence.Id;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String placeId, name;
+    private String placeId, name, uid;
     private double latitude, longitude;
 
 <span class="nc" id="L17">    public long getId() { return id; }</span>
@@ -23,10 +23,13 @@ import javax.persistence.Id;
 <span class="nc" id="L23">    public String getName() { return name; }</span>
 <span class="nc" id="L24">    public void setName(String name) { this.name = name; }</span>
 
-<span class="nc" id="L26">    public double getLatitude() { return latitude; }</span>
-<span class="nc" id="L27">    public void setLatitude(double latitude) { this.latitude = latitude; }</span>
+<span class="nc" id="L26">    public String getUid() { return uid; }</span>
+<span class="nc" id="L27">    public void setUid(String uid) { this.uid = uid; }</span>
 
-<span class="nc" id="L29">    public double getLongitude() { return longitude; }</span>
-<span class="nc" id="L30">    public void setLongitude(double longitude) { this.longitude = longitude; }</span>
+<span class="nc" id="L29">    public double getLatitude() { return latitude; }</span>
+<span class="nc" id="L30">    public void setLatitude(double latitude) { this.latitude = latitude; }</span>
+
+<span class="nc" id="L32">    public double getLongitude() { return longitude; }</span>
+<span class="nc" id="L33">    public void setLongitude(double longitude) { this.longitude = longitude; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

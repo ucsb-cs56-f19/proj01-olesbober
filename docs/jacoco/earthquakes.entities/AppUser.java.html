@@ -11,17 +11,15 @@ import javax.persistence.Id;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String uid, login;
 
-    private String uid;
-    private String login;
+<span class="nc" id="L16">    public Long getId() { return id; }</span>
+<span class="nc" id="L17">    public void setId(Long id) { this.id = id; }</span>
 
-<span class="nc" id="L18">    public Long getId() { return id; }</span>
-<span class="nc" id="L19">    public void setId(Long id) { this.id = id; }</span>
-
-<span class="nc" id="L21">    public String getLogin() { return login; }</span>
-<span class="nc" id="L22">    public void setLogin(String login) { this.login = login; }</span>
+<span class="nc" id="L19">    public String getLogin() { return login; }</span>
+<span class="nc" id="L20">    public void setLogin(String login) { this.login = login; }</span>
    
-<span class="nc" id="L24">    public String getUid() { return uid; }</span>
-<span class="nc" id="L25">    public void setUid (String uid) { this.uid = uid; }</span>
+<span class="nc" id="L22">    public String getUid() { return uid; }</span>
+<span class="nc" id="L23">    public void setUid (String uid) { this.uid = uid; }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

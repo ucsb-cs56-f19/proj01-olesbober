@@ -26,7 +26,7 @@ import earthquakes.searches.EqSearch;
 
 <span class="nc" id="L27">        EarthquakeQueryService e = new EarthquakeQueryService();</span>
 <span class="nc" id="L28">        model.addAttribute(&quot;eqSearch&quot;, eqSearch);</span>
-<span class="nc" id="L29">        String json = e.getJSON(eqSearch.getDistance(), eqSearch.getMinmag());</span>
+<span class="nc" id="L29">        String json = e.getJSON(eqSearch.getDistance(), eqSearch.getMinmag(), eqSearch.getLat(), eqSearch.getLon());</span>
 <span class="nc" id="L30">        model.addAttribute(&quot;json&quot;, json);</span>
 <span class="nc" id="L31">        FeatureCollection featureCollection = FeatureCollection.fromJSON(json);</span>
 <span class="nc" id="L32">        model.addAttribute(&quot;featureCollection&quot;,featureCollection);</span>

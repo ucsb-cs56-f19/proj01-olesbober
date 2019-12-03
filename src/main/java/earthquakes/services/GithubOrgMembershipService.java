@@ -10,11 +10,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-
 import com.jcabi.github.Github;
-import com.jcabi.github.Organization;
 import com.jcabi.github.RtGithub;
-import com.jcabi.github.User;
 import com.jcabi.github.wire.RetryCarefulWire;
 import com.jcabi.http.Request;
 import com.jcabi.http.response.JsonResponse;
@@ -94,8 +91,7 @@ public class GithubOrgMembershipService implements MembershipService {
             // I forget why we have Github wrapped like this
             // TODO: find the tutorial that explains it
             // I think it has something to do with respecting rate limits
-            github = new RtGithub(new RtGithub(accessToken).entry()
-                    .through(RetryCarefulWire.class, 50));
+            github = new RtGithub(new RtGithub(accessToken).entry().through(RetryCarefulWire.class, 50));
 
             // logger.info("github=" + github);
             // User ghuser = github.users().get(user);

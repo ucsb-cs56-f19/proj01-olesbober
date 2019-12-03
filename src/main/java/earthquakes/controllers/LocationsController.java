@@ -2,7 +2,6 @@ package earthquakes.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,9 +24,6 @@ public class LocationsController {
     public LocationsController(LocationRepository locationRepository) {
         this.locationRepository = locationRepository;
     }
-
-    @Autowired
-    private ClientRegistrationRepository clientRegistrationRepository;
 
     @GetMapping("/locations")
     public String index(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {

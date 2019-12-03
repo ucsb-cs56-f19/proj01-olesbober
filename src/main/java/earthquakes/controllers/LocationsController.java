@@ -36,15 +36,20 @@ public class LocationsController {
         return "locations/index";
     }
 
+    @GetMapping("/locations/admin")
+    public String admin(Model model) {
+        Iterable<Location> locations = locationRepository.findAll();
+        model.addAttribute("locations", locations);
+        return "locations/admin";
+    }
+
     @GetMapping("/locations/search")
-    public String getLocationsSearch(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
-            LocSearch locSearch) {
+    public String getLocationsSearch(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken, LocSearch locSearch) {
         return "locations/search";
     }
 
     @GetMapping("/locations/results")
-    public String getLocationsResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
-            LocSearch locSearch) {
+    public String getLocationsResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken, LocSearch locSearch) {
         LocationQueryService l = new LocationQueryService();
         model.addAttribute("locSearch", locSearch);
         String json = l.getJSON(locSearch.getLocation());
@@ -55,7 +60,9 @@ public class LocationsController {
     }
 
     @PostMapping("/locations/add")
-    public String add(Location location, Model model) {
+    public String add(Location location, Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+        String uid = oAuth2AuthenticationToken.getPrincipal().getAttributes().get("id").toString();
+        location.setUid(uid);
         locationRepository.save(location);
         model.addAttribute("locations", locationRepository.findAll());
         return "locations/index";

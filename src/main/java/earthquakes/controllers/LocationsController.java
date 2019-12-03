@@ -76,4 +76,12 @@ public class LocationsController {
         model.addAttribute("locations", locationRepository.findAll());
         return "locations/index";
     }
+
+    @DeleteMapping("/locations/admin/delete/{id}")
+    public String admin_delete(@PathVariable("id") long id, Model model) {
+        Location location = locationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid courseoffering Id:" + id));
+        locationRepository.delete(location);
+        model.addAttribute("locations", locationRepository.findAll());
+        return "locations/admin";
+    }
 }

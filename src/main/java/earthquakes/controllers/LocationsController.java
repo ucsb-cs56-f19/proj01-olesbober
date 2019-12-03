@@ -6,7 +6,9 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import earthquakes.entities.Location;
 import earthquakes.osm.Place;
+import earthquakes.repositories.LocationRepository;
 import java.util.List;
 import earthquakes.services.LocationQueryService;
 import earthquakes.searches.LocSearch;
@@ -14,8 +16,22 @@ import earthquakes.searches.LocSearch;
 @Controller
 public class LocationsController {
 
+    private LocationRepository locationRepository;
+
+    @Autowired
+    public LocationsController(LocationRepository locationRepository) {
+        this.locationRepository = locationRepository;   
+    }
+
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
+
+    @GetMapping("/locations")
+    public String index(Model model) {
+        Iterable<Location> locations = locationRepository.findAll();
+        model.addAttribute("locations", locations);
+        return "locations/index";
+    }
 
     @GetMapping("/locations/search")
     public String getLocationsSearch(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken, LocSearch locSearch) {

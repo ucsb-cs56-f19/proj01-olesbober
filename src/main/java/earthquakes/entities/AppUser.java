@@ -11,9 +11,7 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    private String uid;
-    private String login;
+    private String uid, login;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

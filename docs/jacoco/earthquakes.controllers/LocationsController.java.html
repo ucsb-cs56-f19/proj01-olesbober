@@ -5,33 +5,68 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import earthquakes.entities.Location;
 import earthquakes.osm.Place;
+import earthquakes.repositories.LocationRepository;
 import java.util.List;
 import earthquakes.services.LocationQueryService;
 import earthquakes.searches.LocSearch;
 
 @Controller
-<span class="nc" id="L15">public class LocationsController {</span>
+public class LocationsController {
+
+    private LocationRepository locationRepository;
+
+    @Autowired
+<span class="nc" id="L25">    public LocationsController(LocationRepository locationRepository) {</span>
+<span class="nc" id="L26">        this.locationRepository = locationRepository;</span>
+<span class="nc" id="L27">    }</span>
 
     @Autowired
     private ClientRegistrationRepository clientRegistrationRepository;
 
+    @GetMapping(&quot;/locations&quot;)
+    public String index(Model model) {
+<span class="nc" id="L34">        Iterable&lt;Location&gt; locations = locationRepository.findAll();</span>
+<span class="nc" id="L35">        model.addAttribute(&quot;locations&quot;, locations);</span>
+<span class="nc" id="L36">        return &quot;locations/index&quot;;</span>
+    }
+
     @GetMapping(&quot;/locations/search&quot;)
-    public String getLocationsSearch(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken, LocSearch locSearch) {
-<span class="nc" id="L22">        return &quot;locations/search&quot;;</span>
+    public String getLocationsSearch(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
+            LocSearch locSearch) {
+<span class="nc" id="L42">        return &quot;locations/search&quot;;</span>
     }
 
     @GetMapping(&quot;/locations/results&quot;)
     public String getLocationsResults(Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken,
             LocSearch locSearch) {
-<span class="nc" id="L28">        LocationQueryService l = new LocationQueryService();</span>
-<span class="nc" id="L29">        model.addAttribute(&quot;locSearch&quot;, locSearch);</span>
-<span class="nc" id="L30">        String json = l.getJSON(locSearch.getLocation());</span>
-<span class="nc" id="L31">        model.addAttribute(&quot;json&quot;, json);</span>
-<span class="nc" id="L32">        List&lt;Place&gt; place = Place.listFromJson(json);</span>
-<span class="nc" id="L33">        model.addAttribute(&quot;place&quot;, place);</span>
-<span class="nc" id="L34">        return &quot;locations/results&quot;;</span>
+<span class="nc" id="L48">        LocationQueryService l = new LocationQueryService();</span>
+<span class="nc" id="L49">        model.addAttribute(&quot;locSearch&quot;, locSearch);</span>
+<span class="nc" id="L50">        String json = l.getJSON(locSearch.getLocation());</span>
+<span class="nc" id="L51">        model.addAttribute(&quot;json&quot;, json);</span>
+<span class="nc" id="L52">        List&lt;Place&gt; place = Place.listFromJson(json);</span>
+<span class="nc" id="L53">        model.addAttribute(&quot;place&quot;, place);</span>
+<span class="nc" id="L54">        return &quot;locations/results&quot;;</span>
+    }
+
+    @PostMapping(&quot;/locations/add&quot;)
+    public String add(Location location, Model model) {
+<span class="nc" id="L59">        locationRepository.save(location);</span>
+<span class="nc" id="L60">        model.addAttribute(&quot;locations&quot;, locationRepository.findAll());</span>
+<span class="nc" id="L61">        return &quot;locations/index&quot;;</span>
+    }
+
+    @DeleteMapping(&quot;/locations/delete/{id}&quot;)
+    public String delete(@PathVariable(&quot;id&quot;) long id, Model model) {
+<span class="nc" id="L66">        Location location = locationRepository.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid courseoffering Id:&quot; + id));</span>
+<span class="nc" id="L67">        locationRepository.delete(location);</span>
+<span class="nc" id="L68">        model.addAttribute(&quot;locations&quot;, locationRepository.findAll());</span>
+<span class="nc" id="L69">        return &quot;locations/index&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

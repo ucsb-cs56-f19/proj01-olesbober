@@ -66,10 +66,11 @@ public class LocationsController {
     }
 
     @DeleteMapping("/locations/delete/{id}")
-    public String delete(@PathVariable("id") long id, Model model) {
+    public String delete(@PathVariable("id") long id, Model model, OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+	    String uid = oAuth2AuthenticationToken.getPrincipal().getAttributes().get("id").toString();
         Location location = locationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid courseoffering Id:" + id));
         locationRepository.delete(location);
-        model.addAttribute("locations", locationRepository.findAll());
+        model.addAttribute("locations", locationRepository.findByUid(uid));
         return "locations/index";
     }
 
